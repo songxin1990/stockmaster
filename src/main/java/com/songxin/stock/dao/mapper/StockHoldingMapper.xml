@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.songxin.stock.dao.StockHoldingMapper" >
+  <resultMap id="BaseResultMap" type="com.songxin.stock.entity.db.StockHolding" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="stockholder_code" property="stockholderCode" jdbcType="VARCHAR" />
+    <result column="market_date" property="marketDate" jdbcType="DATE" />
+    <result column="stock_code" property="stockCode" jdbcType="VARCHAR" />
+    <result column="cost_price" property="costPrice" jdbcType="DECIMAL" />
+    <result column="close_price" property="closePrice" jdbcType="DECIMAL" />
+    <result column="stock_num" property="stockNum" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, stockholder_code, market_date, stock_code, cost_price, close_price, stock_num
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from stock_holding
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from stock_holding
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.songxin.stock.entity.db.StockHolding" >
+    insert into stock_holding (id, stockholder_code, market_date, 
+      stock_code, cost_price, close_price, 
+      stock_num)
+    values (#{id,jdbcType=INTEGER}, #{stockholderCode,jdbcType=VARCHAR}, #{marketDate,jdbcType=DATE}, 
+      #{stockCode,jdbcType=VARCHAR}, #{costPrice,jdbcType=DECIMAL}, #{closePrice,jdbcType=DECIMAL}, 
+      #{stockNum,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.songxin.stock.entity.db.StockHolding" >
+    insert into stock_holding
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="stockholderCode != null" >
+        stockholder_code,
+      </if>
+      <if test="marketDate != null" >
+        market_date,
+      </if>
+      <if test="stockCode != null" >
+        stock_code,
+      </if>
+      <if test="costPrice != null" >
+        cost_price,
+      </if>
+      <if test="closePrice != null" >
+        close_price,
+      </if>
+      <if test="stockNum != null" >
+        stock_num,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="stockholderCode != null" >
+        #{stockholderCode,jdbcType=VARCHAR},
+      </if>
+      <if test="marketDate != null" >
+        #{marketDate,jdbcType=DATE},
+      </if>
+      <if test="stockCode != null" >
+        #{stockCode,jdbcType=VARCHAR},
+      </if>
+      <if test="costPrice != null" >
+        #{costPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="closePrice != null" >
+        #{closePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="stockNum != null" >
+        #{stockNum,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.songxin.stock.entity.db.StockHolding" >
+    update stock_holding
+    <set >
+      <if test="stockholderCode != null" >
+        stockholder_code = #{stockholderCode,jdbcType=VARCHAR},
+      </if>
+      <if test="marketDate != null" >
+        market_date = #{marketDate,jdbcType=DATE},
+      </if>
+      <if test="stockCode != null" >
+        stock_code = #{stockCode,jdbcType=VARCHAR},
+      </if>
+      <if test="costPrice != null" >
+        cost_price = #{costPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="closePrice != null" >
+        close_price = #{closePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="stockNum != null" >
+        stock_num = #{stockNum,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.songxin.stock.entity.db.StockHolding" >
+    update stock_holding
+    set stockholder_code = #{stockholderCode,jdbcType=VARCHAR},
+      market_date = #{marketDate,jdbcType=DATE},
+      stock_code = #{stockCode,jdbcType=VARCHAR},
+      cost_price = #{costPrice,jdbcType=DECIMAL},
+      close_price = #{closePrice,jdbcType=DECIMAL},
+      stock_num = #{stockNum,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

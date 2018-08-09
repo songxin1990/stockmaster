@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xmlns:context="http://www.springframework.org/schema/context"
+     xmlns:tx="http://www.springframework.org/schema/tx" 
+     xmlns:aop="http://www.springframework.org/schema/aop"
+     xmlns:task="http://www.springframework.org/schema/task"
+    xsi:schemaLocation="
+http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+http://www.springframework.org/schema/tx 
+http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+http://www.springframework.org/schema/aop 
+http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+http://www.springframework.org/schema/context
+http://www.springframework.org/schema/context/spring-context-4.0.xsd
+http://www.springframework.org/schema/task
+http://www.springframework.org/schema/task/spring-task-3.0.xsd">
+
+	
+	<!-- 数据库配置文件目录 -->
+	<context:property-placeholder location="classpath:config/dbconfig.properties"/>
+	<!-- 扫描服务包 -->
+	<context:component-scan base-package="com.songxin.stock.service"/>
+			
+	<!-- 数据源配置，可能需要在这里添加一些额外配置-->
+    <bean name="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource" >
+    	<property name="driverClassName" value="${driverClassName}"></property>
+        <property name="url" value="${jdbc_url}" />
+        <property name="username" value="${jdbc_username}" />
+        <property name="password" value="${jdbc_password}" />
+    </bean>
+    <!--这里表示的是从第五秒开始 ，每三秒执行一次-->   
+    	<!-- <task:scheduled ref="taskTest" method="say" cron="5/3 * * * * ?" /> -->  
+    <!-- <task:scheduled-tasks>  
+        <task:scheduled ref="taskJob" method="job1" cron="10/1 * * * * ?"/>   
+	</task:scheduled-tasks>   -->
+	<!-- <context:component-scan base-package="com.globex.baseservice.schedule" />  --> 
+	
+	
+</beans>

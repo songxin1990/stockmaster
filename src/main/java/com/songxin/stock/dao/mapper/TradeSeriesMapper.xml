@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.songxin.stock.dao.TradeSeriesMapper" >
+  <resultMap id="BaseResultMap" type="com.songxin.stock.entity.db.TradeSeries" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="stockholder_code" property="stockholderCode" jdbcType="VARCHAR" />
+    <result column="stock_code" property="stockCode" jdbcType="VARCHAR" />
+    <result column="stock_name" property="stockName" jdbcType="VARCHAR" />
+    <result column="profit_lose" property="profitLose" jdbcType="DECIMAL" />
+    <result column="profit_percent" property="profitPercent" jdbcType="DECIMAL" />
+    <result column="trade_summary" property="tradeSummary" jdbcType="VARCHAR" />
+    
+    <result column="series_begintime" property="seriesBegintime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, stockholder_code, stock_code, stock_name, profit_lose, profit_percent, trade_summary,series_begintime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from trade_series
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from trade_series
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.songxin.stock.entity.db.TradeSeries" >
+    insert into trade_series (id, stockholder_code, stock_code, 
+      stock_name, profit_lose, profit_percent, 
+      trade_summary,series_begintime)
+    values (#{id,jdbcType=INTEGER}, #{stockholderCode,jdbcType=VARCHAR}, #{stockCode,jdbcType=VARCHAR}, 
+      #{stockName,jdbcType=VARCHAR}, #{profitLose,jdbcType=DECIMAL}, #{profitPercent,jdbcType=DECIMAL}, 
+      #{tradeSummary,jdbcType=VARCHAR},#{seriesBegintime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.songxin.stock.entity.db.TradeSeries" >
+    insert into trade_series
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="stockholderCode != null" >
+        stockholder_code,
+      </if>
+      <if test="stockCode != null" >
+        stock_code,
+      </if>
+      <if test="stockName != null" >
+        stock_name,
+      </if>
+      <if test="profitLose != null" >
+        profit_lose,
+      </if>
+      <if test="profitPercent != null" >
+        profit_percent,
+      </if>
+      <if test="tradeSummary != null" >
+        trade_summary,
+      </if>
+      
+      <if test="seriesBegintime != null" >
+        series_begintime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="stockholderCode != null" >
+        #{stockholderCode,jdbcType=VARCHAR},
+      </if>
+      <if test="stockCode != null" >
+        #{stockCode,jdbcType=VARCHAR},
+      </if>
+      <if test="stockName != null" >
+        #{stockName,jdbcType=VARCHAR},
+      </if>
+      <if test="profitLose != null" >
+        #{profitLose,jdbcType=DECIMAL},
+      </if>
+      <if test="profitPercent != null" >
+        #{profitPercent,jdbcType=DECIMAL},
+      </if>
+      <if test="tradeSummary != null" >
+        #{tradeSummary,jdbcType=VARCHAR},
+      </if>
+      <if test="seriesBegintime != null" >
+        #{seriesBegintime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.songxin.stock.entity.db.TradeSeries" >
+    update trade_series
+    <set >
+      <if test="stockholderCode != null" >
+        stockholder_code = #{stockholderCode,jdbcType=VARCHAR},
+      </if>
+      <if test="stockCode != null" >
+        stock_code = #{stockCode,jdbcType=VARCHAR},
+      </if>
+      <if test="stockName != null" >
+        stock_name = #{stockName,jdbcType=VARCHAR},
+      </if>
+      <if test="profitLose != null" >
+        profit_lose = #{profitLose,jdbcType=DECIMAL},
+      </if>
+      <if test="profitPercent != null" >
+        profit_percent = #{profitPercent,jdbcType=DECIMAL},
+      </if>
+      <if test="tradeSummary != null" >
+        trade_summary = #{tradeSummary,jdbcType=VARCHAR},
+      </if>
+      <if test="seriesBegintime != null" >
+        series_begintime = #{seriesBegintime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.songxin.stock.entity.db.TradeSeries" >
+    update trade_series
+    set stockholder_code = #{stockholderCode,jdbcType=VARCHAR},
+      stock_code = #{stockCode,jdbcType=VARCHAR},
+      stock_name = #{stockName,jdbcType=VARCHAR},
+      profit_lose = #{profitLose,jdbcType=DECIMAL},
+      profit_percent = #{profitPercent,jdbcType=DECIMAL},
+      trade_summary = #{tradeSummary,jdbcType=VARCHAR},
+      series_begintime = #{seriesBegintime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <insert id="insertAndGetId" useGeneratedKeys="true" keyProperty="id" parameterType="com.songxin.stock.entity.db.TradeSeries">  
+   insert into trade_series ( stockholder_code, stock_code, 
+      stock_name, profit_lose, profit_percent, 
+      trade_summary,series_begintime)
+    values ( #{stockholderCode,jdbcType=VARCHAR}, #{stockCode,jdbcType=VARCHAR}, 
+      #{stockName,jdbcType=VARCHAR}, #{profitLose,jdbcType=DECIMAL}, #{profitPercent,jdbcType=DECIMAL}, 
+      #{tradeSummary,jdbcType=VARCHAR},#{seriesBegintime,jdbcType=TIMESTAMP})
+      
+      <!-- <selectKey resultType="INTEGER" order="AFTER" keyProperty="id">
+		SELECT LAST_INSERT_ID() AS id
+	   </selectKey> -->
+	</insert>
+	
+	
+	
+  
+</mapper>

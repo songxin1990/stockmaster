@@ -1,2 +1,1 @@
 # stockmaster
-stockmaster

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+ 
+xmlns:context="http://www.springframework.org/schema/context"
+xsi:schemaLocation="
+http://www.springframework.org/schema/beans 
+http://www.springframework.org/schema/beans/spring-beans-4.0.xsd 
+
+http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+
+    <!-- ========================================针对myBatis的配置项============================== -->
+    <!-- 配置sqlSessionFactory -->
+    <!-- 实例化sqlSessionFactory时需要使用上述配置好的数据源以及SQL映射文件 -->
+    <!-- 自动扫描com/globex/baseservice/mappers/目录下的所有SQL映射的xml文件, 省掉Configuration.xml里的手工配置
+        value="classpath:com/globex/baseservice/mappers/*.xml"指的是classpath(类路径)下com/globex/baseservice/mappers/包中的所有xml文件
+        UserMapper.xml位于com/globex/baseservice/mappers/包下，这样UserMapper.xml就可以被自动扫描
+    -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">       
+        <property name="dataSource" ref="dataSource" />
+        <property name="mapperLocations" value="classpath:com/songxin/stock/dao/mapper/*.xml" />
+    </bean>
+    
+    <!-- 配置扫描器 -->
+    <bean id="daoScan" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+       <!-- 扫描com.songxin.stock.dao这个包以及它的子包下的所有映射接口类 --> 
+         <property name="basePackage" value="com.songxin.stock.dao" />
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
+    </bean> 
+    
+</beans>
